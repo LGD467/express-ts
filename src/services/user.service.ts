@@ -9,8 +9,14 @@ export class UserService {
   constructor() {
     this.userRepository = db.getRepository(User);
   }
+
   // 查询全部用户
   async queryList() {
     return await this.userRepository.findAndCount();
+  }
+
+  // 查询单个用户
+  async queryById(id: number) {
+    return await this.userRepository.findOneBy({ id });
   }
 }

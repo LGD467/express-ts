@@ -20,6 +20,18 @@ async function init() {
 
   app.use(json());
   app.use(urlencoded({ extended: true }));
+  app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested-With, Content-Type, Accept"
+    );
+    res.header(
+      "Access-Control-Allow-Methods",
+      "GET, POST, PUT, DELETE, OPTIONS"
+    );
+    next();
+  });
 
   // 将当前实例注册到 routing-controllers
   useExpressServer(app, {
@@ -28,7 +40,6 @@ async function init() {
 
   app.listen(3000, () => {
     console.log(`  App is running at http://localhost:3000\n`);
-    console.log("  Press CTRL-C to stop\n");
   });
 }
 
